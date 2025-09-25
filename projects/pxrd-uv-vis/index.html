@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fafafa;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: #2980b9;
+        }
+
+        .back-link::before {
+            content: "← ";
+        }
+
+        .project-header {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .project-title {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .project-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .project-tech {
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            background: #ecf0f1;
+            color: #2c3e50;
+            padding: 6px 15px;
+            margin: 2px 6px 2px 0;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .project-links {
+            margin-top: 20px;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-right: 20px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+            border: 2px solid #3498db;
+            border-radius: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .project-link:hover {
+            background: #3498db;
+            color: white;
+        }
+
+        .content-section {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            background: #ecf0f1;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7f8c8d;
+            font-size: 1rem;
+            border: 2px dashed #bdc3c7;
+        }
+
+        .chart-container {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .code-snippet {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .justify-text {
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .project-header, .content-section {
+                padding: 20px;
+            }
+            
+            .project-title {
+                font-size: 2rem;
+            }
+            
+            .image-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../../index.html" class="back-link">Back to Portfolio</a>
+        
+        <header class="project-header">
+            <h1 class="project-title">Functions for PXRD and UV-Vis plot</h1>
+            <p class="project-subtitle">Easy analysis and plotting for lab data without pricey software</p>
+            
+            <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Pandas</span>
+                    <span class="tech-tag">Numpy</span>
+                    <span class="tech-tag">Matplotlib</span>
+            </div>
+        </header>
+
+        <section class="content-section">
+            <h2 class="section-title">Project Overview</h2>
+            <p class="justify-text">
+                As I've changed from a lab that used to use Python for analysis and plotting, I faced many difficulties to
+                plot and use paid software's such as Origin, so I implemented some functions to remediate this issue.
+                The analysis for UV-Vis is quite simple, only identify the highest intensity and return the wave length correspondent.
+                So using Beer-Lambert law, I then find the concentration of the corant in the solution at a given time. Also, using powder
+                reflectance, I was able to extract the band gap of the sample. As for PXRD, I've
+                made a Williamson-Hall plotting that return the Strain and Crystallite size. Also, I made a stacked 
+                like and zoom in on the desired angle. 
+            </p>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">Screenshots & UI Design</h2>
+            <div class="image-gallery">
+                <div>
+                    <img src="./images/xrd_bfo_single_and_cryo_oneshot_with_inset.png" alt="CIFAR-10 Cars Classification" class="project-image">
+                    <div class="image-caption">Stacked, with small zoom, plot of XRD data </div>
+                </div>
+                <div>
+                    <img src="./images/williamson-hall-plot.png" alt="CIFAR-10 Cars Classification" class="project-image">
+                    <div class="image-caption">Williamson-Hall plot</div>
+                </div>
+                <div>
+                    <img src="./images/band_gap_bfo_1_1S.png" alt="CIFAR-10 Cars Classification" class="project-image">
+                    <div class="image-caption">Tauc plot with band gap value</div>
+                </div>
+                <div>
+                    <img src="./images/ln_c_time.png" alt="CIFAR-10 Cars Classification" class="project-image">
+                    <div class="image-caption">Kinects of piezocatalytic reaction</div>
+                </div>
+            </div>
+        </section>
+
+ <section class="content-section">
+    <h2 class="section-title">Technical Implementation</h2>
+    <p class="justify-text">
+        The Williamson-Hall analysis follows the usual procedure. First, you need a high-quality diffractogram and the FWHM values for the peaks.  
+        For my data, I also had to account for the instrument's contribution. I started by measuring a standard sample, in my case LaB6, and found the FWHM for its peaks.  
+        Using the Caglioti function, I calculated the U, V, and W parameters to correct for the instrument, since the measured profile is a convolution of the instrument and sample.  
+        After that, it's straightforward to perform a linear regression to extract the key values.
+    </p>
+    <p class="justify-text" style="margin-top: 25px">
+        For the concentration measurements, I began with data cleaning: combining files, dropping unnecessary columns, and renaming others.  
+        Creating the Tauc plot for the band gap was a fun challenge, I spent some time revisiting the concepts, but it was rewarding to see it all come together.
+    </p>
+</section>
+
+        <h3 style="margin-top: 25px; margin-bottom: 15px; color: #2c3e50;">Caglioti & Williamson-Hall</h3>
+<div style="background-color: #1e1e1e; color: #d4d4d4; font-family: 'Courier New', monospace;
+            padding: 15px; border-radius: 8px; overflow-x: auto; line-height: 1.5; font-size: 14px;">
+<pre>
+<span style="color:#569cd6;">import</span> numpy <span style="color:#569cd6;">as</span> np
+<span style="color:#569cd6;">from</span> scipy.stats <span style="color:#569cd6;">import</span> linregress
+<span style="color:#569cd6;">import</span> matplotlib.pyplot <span style="color:#569cd6;">as</span> plt
+
+# Prepare data
+theta = np.radians(df['Theta']/2)
+tan_theta = np.tan(theta)
+Y = (np.radians(df[' W']))**2
+
+# Fit Caglioti: Y = U*tan² + V*tan + W
+X = np.vstack([tan_theta**2, tan_theta, np.ones_like(tan_theta)]).T
+U, V, W = np.linalg.lstsq(X, Y, rcond=None)[0]
+
+# Williamson-Hall: beta_sample = sqrt(FWHM² - beta_instrument²)
+radians_theta = np.radians(df_bfo['2Theta']/2)
+beta_instrument = U*np.tan(radians_theta)**2 + V*np.tan(radians_theta) + W
+beta_sample = np.sqrt((np.radians(df_bfo[' W']))**2 - beta_instrument)
+
+# Linear fit for strain and size
+x = 4*np.sin(radians_theta)
+y = beta_sample*np.cos(radians_theta)
+params = linregress(x, y)
+
+# Quick plots
+plt.scatter(tan_theta, Y, label='Exp'); plt.plot(tan_theta, U*tan_theta**2 + V*tan_theta + W, '--', label='Fit')
+plt.title('Caglioti Fit'); plt.legend(); plt.show()
+
+plt.scatter(x, y, label='Data'); plt.plot(x, params.intercept + params.slope*x, '--', label='Fit')
+plt.title('Williamson-Hall'); plt.legend(); plt.show()
+</pre>
+</div>
+
+<h3 style="margin-top: 25px; margin-bottom: 15px; color: #2c3e50;">BFO Band Gap</h3>
+<div style="background-color: #1e1e1e; color: #d4d4d4; font-family: 'Courier New', monospace;
+            padding: 15px; border-radius: 8px; overflow-x: auto; line-height: 1.5; font-size: 14px;">
+<pre>
+<span style="color:#569cd6;">import</span> numpy <span style="color:#569cd6;">as</span> np
+<span style="color:#569cd6;">from</span> scipy.constants <span style="color:#569cd6;">import</span> Planck, speed_of_light, electron_volt, nano
+<span style="color:#569cd6;">from</span> scipy.signal <span style="color:#569cd6;">import</span> savgol_filter
+<span style="color:#569cd6;">from</span> scipy.interpolate <span style="color:#569cd6;">import</span> interp1d
+
+<span style="color:#569cd6;">def</span> calculate_absorbance(df, sample_name):
+    R = df[sample_name]/100
+    kubelka = (1 - R)**2 / (2*R)
+    hc = Planck*speed_of_light/(electron_volt*nano)
+    energy = hc / df['wavelength(nm)']
+    return energy, (kubelka*energy)**2
+
+<span style="color:#569cd6;">def</span> calculate_band_gap_from_tauc(tauc_df, energy_col, tauc_col):
+    y_smooth = savgol_filter(tauc_col.values, 51, 3)
+    interp = interp1d(energy_col.values, y_smooth)
+    x = np.linspace(energy_col.min(), energy_col.max(), 5000)
+    grad = np.diff(interp(x)) / np.diff(x)
+    start = np.argmax(grad)
+    fit = np.polyfit(x[start:start+100], interp(x)[start:start+100], 1)
+    band_gap = -fit[1]/fit[0]
+    x_fit = np.linspace(x[start], band_gap, 100)
+    y_fit = np.polyval(fit, x_fit)
+    <span style="color:#569cd6;">return</span> band_gap, fit, x_fit, y_fit
+</pre>
+</div>
+
+<h3 style="margin-top: 25px; margin-bottom: 15px; color: #2c3e50;">Dye Concentration Function</h3>
+<div style="background-color: #1e1e1e; color: #d4d4d4; font-family: 'Courier New', monospace;
+            padding: 15px; border-radius: 8px; overflow-x: auto; line-height: 1.5; font-size: 14px;">
+<pre>
+<span style="color:#569cd6;">import</span> pandas <span style="color:#569cd6;">as</span> pd
+<span style="color:#569cd6;">import</span> numpy <span style="color:#569cd6;">as</span> np
+<span style="color:#569cd6;">from</span> scipy.stats <span style="color:#569cd6;">import</span> linregress
+<span style="color:#569cd6;">import</span> re
+
+<span style="color:#569cd6;">def</span> process_absorbance_data(df):
+    max_col = df.sum().idxmax()
+    max_row = df.loc[df[max_col].idxmax()]
+    numbers_and_values = [(re.search(r'\d+', col).group(0), max_row[col]) 
+                          for col in df.columns if re.search(r'\d+', col)]
+    result_df = pd.DataFrame(numbers_and_values, columns=['Time','Absorbance'])
+    result_df['Concentration'] = result_df['Absorbance']/result_df['Absorbance'].iloc[0]
+    <span style="color:#569cd6;">return</span> result_df
+
+<span style="color:#569cd6;">def</span> calculate_ln_and_regression(df):
+    C_0 = df['Concentration'].iloc[0]
+    C_ratio = df['Concentration']/C_0
+    ln_C0_C = np.log(C_0/C_ratio)
+    numeric_time = pd.to_numeric(df['Time'], errors='coerce')
+    reg = linregress(numeric_time, ln_C0_C)
+    <span style="color:#569cd6;">return</span> reg, ln_C0_C, numeric_time, np.log(C_ratio/C_0)
+</pre>
+</div>
+
+        </section>
+
+        
+</body>
+</html>

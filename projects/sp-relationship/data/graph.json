@@ -1,0 +1,268 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "degree": 6,
+      "id": "Dean's"
+    },
+    {
+      "degree": 1,
+      "id": "Anna Milton"
+    },
+    {
+      "degree": 1,
+      "id": "Cassie Robinson"
+    },
+    {
+      "degree": 1,
+      "id": "Carmen Porter"
+    },
+    {
+      "degree": 1,
+      "id": "Layla Rourke"
+    },
+    {
+      "degree": 1,
+      "id": "Robin"
+    },
+    {
+      "degree": 1,
+      "id": "Lisa Braeden"
+    },
+    {
+      "degree": 15,
+      "id": "Sam's"
+    },
+    {
+      "degree": 1,
+      "id": "Amelia Richardson"
+    },
+    {
+      "degree": 1,
+      "id": "Amy Pond"
+    },
+    {
+      "degree": 1,
+      "id": "Annie Hawkins"
+    },
+    {
+      "degree": 2,
+      "id": "Becky Rosen"
+    },
+    {
+      "degree": 1,
+      "id": "Dr. Cara Roberts"
+    },
+    {
+      "degree": 1,
+      "id": "Eileen Leahy"
+    },
+    {
+      "degree": 1,
+      "id": "Jessica Moore"
+    },
+    {
+      "degree": 1,
+      "id": "Lana"
+    },
+    {
+      "degree": 1,
+      "id": "Lori Sorensen"
+    },
+    {
+      "degree": 1,
+      "id": "Madison"
+    },
+    {
+      "degree": 1,
+      "id": "Piper"
+    },
+    {
+      "degree": 1,
+      "id": "Sarah Blake"
+    },
+    {
+      "degree": 1,
+      "id": "Sparrow Jennings"
+    },
+    {
+      "degree": 1,
+      "id": "Velma Dinkley"
+    },
+    {
+      "degree": 1,
+      "id": "Women of Bristol, Rhode Island"
+    },
+    {
+      "degree": 3,
+      "id": "Crowley's"
+    },
+    {
+      "degree": 1,
+      "id": "Billie"
+    },
+    {
+      "degree": 1,
+      "id": "Lilith"
+    },
+    {
+      "degree": 1,
+      "id": "Naomi"
+    },
+    {
+      "degree": 2,
+      "id": "John's"
+    },
+    {
+      "degree": 1,
+      "id": "Kate Milligan"
+    },
+    {
+      "degree": 1,
+      "id": "Tara"
+    },
+    {
+      "degree": 1,
+      "id": "God's"
+    }
+  ],
+  "links": [
+    {
+      "Relationship Type": "Romance",
+      "source": "Dean's",
+      "target": "Anna Milton"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Dean's",
+      "target": "Cassie Robinson"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Dean's",
+      "target": "Carmen Porter"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Dean's",
+      "target": "Layla Rourke"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Dean's",
+      "target": "Robin"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Dean's",
+      "target": "Lisa Braeden"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Sam's",
+      "target": "Amelia Richardson"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Sam's",
+      "target": "Amy Pond"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Sam's",
+      "target": "Annie Hawkins"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Sam's",
+      "target": "Becky Rosen"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Sam's",
+      "target": "Dr. Cara Roberts"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Sam's",
+      "target": "Eileen Leahy"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Sam's",
+      "target": "Jessica Moore"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Sam's",
+      "target": "Lana"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Sam's",
+      "target": "Lori Sorensen"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Sam's",
+      "target": "Madison"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Sam's",
+      "target": "Piper"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Sam's",
+      "target": "Sarah Blake"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Sam's",
+      "target": "Sparrow Jennings"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Sam's",
+      "target": "Velma Dinkley"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Sam's",
+      "target": "Women of Bristol, Rhode Island"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Becky Rosen",
+      "target": "God's"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Crowley's",
+      "target": "Billie"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Crowley's",
+      "target": "Lilith"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "Crowley's",
+      "target": "Naomi"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "John's",
+      "target": "Kate Milligan"
+    },
+    {
+      "Relationship Type": "Romance",
+      "source": "John's",
+      "target": "Tara"
+    }
+  ]
+}
