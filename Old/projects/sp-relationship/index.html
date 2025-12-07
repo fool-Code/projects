@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supernatural Network</title>
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="../../../style.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Global Script (dark mode, sidebar, etc.) -->
+    <script defer src="../../../script.js"></script>
+
+    <!-- Chart.js (optional for this project) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+
+<body data-theme="dark">
+
+    <!-- Shared Sidebar -->
+    <div id="sidebar-container"></div>
+    <script>
+        fetch("../../../sidebar.html")
+            .then(r => r.text())
+            .then(html => document.getElementById("sidebar-container").innerHTML = html);
+    </script>
+
+</head>
+
+<body data-theme="light">
+
+<!-- SIDEBAR -->
+    <script>
+        (function () {
+        const saved = localStorage.getItem("site-theme") || "dark";
+        document.documentElement.setAttribute("data-theme", saved);
+        })();
+    </script>
+
+
+    <div id="sidebar-container"></div>
+    <script>
+        fetch("../../../sidebar.html")
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("sidebar-container").innerHTML = html;
+        });
+    </script>
+    <!-- D3 -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <main class="main-content">
+
+        <!-- Back button -->
+        <a href="../../../projects.html" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Back to Projects
+        </a>
+        <!-- HEADER CARD -->
+        <div class="card project-header">
+            <h1>Supernatural Network</h1>
+            <p class="subtitle">A small network visualisation</p>
+
+            <div class="tech-list">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">NetworkX</span>
+                <span class="tech-tag">BeautifulSoup</span>
+            </div>
+        </div>
+
+        <!-- OVERVIEW -->
+        <div class="card section">
+            <h2 class="section-title">Project Overview</h2>
+            <p class="text-justify">
+                In this project, I explored the relationships between characters in the popular TV show Supernatural...
+                (text unchanged, just styled)
+            </p>
+        </div>
+
+        <!-- TECH IMPLEMENTATION -->
+        <div class="card section">
+            <h2 class="section-subtitle">Technical Implementation</h2>
+
+            <p>
+                This project analyses romantic relationships in the TV series <em>Supernatural</em> 
+                by scraping character data...
+            </p>
+
+            <h3>Process Overview</h3>
+            <div class="code-block">
+Fetch → Parse HTML → Build DataFrame → Build NetworkX Graph → Visualise (Matplotlib / D3.js)
+            </div>
+
+            <h3>Sample Data</h3>
+            <div class="code-block">
+Character, Relationship Type, Related Character  
+Dean — Romance — Lisa  
+Sam — Romance — Madison  
+Crowley — Romance — Lilith
+            </div>
+
+            <h3>Core Python Code</h3>
+            <pre class="code-block">
+import requests, re  
+import pandas as pd  
+import networkx as nx  
+from bs4 import BeautifulSoup as bs  
+
+# Scraping  
+url = 'https://supernatural.fandom.com/wiki/Category:Relationships'  
+res = requests.get(url)  
+soup = bs(res.content, 'html.parser')  
+
+# DataFrame  
+df = pd.DataFrame(columns=['Character','Relationship Type','Related Character'])  
+
+# Build graph  
+G = nx.from_pandas_edgelist(df, source='Character', target='Related Character')
+            </pre>
+        </div>
+
+        <!-- NETWORK GRAPH -->
+        <div class="card section">
+            <h2>Interactive Relationship Network</h2>
+            <p>
+                Explore the romantic connections between Supernatural characters.
+            </p>
+
+            <div id="supernatural-graph"></div>
+
+            <input id="sn-search" placeholder="Search character…" style="padding:8px; width:220px; margin-top:10px;">
+        </div>
+
+        <!-- RESULTS -->
+        <div class="card section">
+            <h2>Results</h2>
+            <p class="text-justify">
+                It turns out that the character with the most romantic relationships is actually Sam…
+            </p>
+        </div>
+
+    </div>
+
+    <!-- ===== D3 SCRIPT UNCHANGED ===== -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <script>
+        (function() {
+          const width = document.getElementById('supernatural-graph').clientWidth;
+          const height = 600;
+        
+          const svg = d3.select('#supernatural-graph')
+            .append('svg')
+            .attr('width', '100%')
+            .attr('height', height);
+        
+          const container = svg.append('g');
+        
+          // zoom & pan
+          svg.call(
+            d3.zoom()
+              .scaleExtent([0.1, 4])
+              .on('zoom', (event) => container.attr('transform', event.transform))
+          );
+        
+          // Load the JSON you exported from Python
+          d3.json('data/graph.json').then(data => {
+            const nodes = data.nodes;
+            const links = data.links;
+        
+            // scale node size by degree
+            const rScale = d3.scaleSqrt()
+              .domain(d3.extent(nodes, d => d.degree || 1))
+              .range([4, 16]);
+        
+            const simulation = d3.forceSimulation(nodes)
+              .force('link', d3.forceLink(links).id(d => d.id).distance(80))
+              .force('charge', d3.forceManyBody().strength(-80))
+              .force('center', d3.forceCenter(width / 2, height / 2))
+              .force('collide', d3.forceCollide(d => rScale(d.degree || 1) + 4));
+        
+            const link = container.append('g')
+              .attr('stroke', '#c03fb4')
+              .attr('stroke-opacity', 0.25)
+              .selectAll('line')
+              .data(links)
+              .enter()
+              .append('line');
+        
+            const node = container.append('g')
+              .selectAll('g')
+              .data(nodes)
+              .enter()
+              .append('g')
+              .call(d3.drag()
+                .on('start', dragstarted)
+                .on('drag', dragged)
+                .on('end', dragended)
+              );
+        
+            node.append('circle')
+              .attr('r', d => rScale(d.degree || 1))
+              .attr('fill', '#210070')
+              .attr('stroke', '#111')
+              .attr('stroke-width', 0.6);
+        
+            node.append('title').text(d => `${d.id}\nDegree: ${d.degree || 0}`);
+        
+            node.append('text')
+              .text(d => d.id)
+              .attr('x', d => rScale(d.degree || 1) + 4)
+              .attr('y', 3)
+              .style('font-size', '11px')
+              .style('pointer-events', 'none');
+        
+            simulation.on('tick', () => {
+              link
+                .attr('x1', d => d.source.x)
+                .attr('y1', d => d.source.y)
+                .attr('x2', d => d.target.x)
+                .attr('y2', d => d.target.y);
+            
+              node.attr('transform', d => `translate(${d.x},${d.y})`);
+            });
+        
+            // simple search highlight
+            const searchBox = document.getElementById('sn-search');
+            searchBox.addEventListener('input', e => {
+              const q = e.target.value.toLowerCase();
+              node.selectAll('circle').attr('fill-opacity',
+                d => !q || d.id.toLowerCase().includes(q) ? 0.95 : 0.2
+              );
+              node.selectAll('text').style('opacity',
+                d => !q || d.id.toLowerCase().includes(q) ? 1 : 0.1
+              );
+              link.attr('stroke-opacity',
+                l => !q || l.source.id.toLowerCase().includes(q) || l.target.id.toLowerCase().includes(q) ? 0.4 : 0.05
+              );
+            });
+        
+            function dragstarted(event, d) {
+              if (!event.active) simulation.alphaTarget(0.3).restart();
+              d.fx = d.x;
+              d.fy = d.y;
+            }
+            function dragged(event, d) {
+              d.fx = event.x;
+              d.fy = event.y;
+            }
+            function dragended(event, d) {
+              if (!event.active) simulation.alphaTarget(0);
+              // keep node fixed after drag (double-click to release)
+            }
+          });
+        })();
+    </script>
+    </main>
+
+
+</body>
+</html>

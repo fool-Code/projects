@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Publications – Your Name</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-theme="light">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- SIDEBAR -->
+
+
+<script>
+  fetch("sidebar.html")
+  .then(response => response.text())
+  .then(html => {
+    document.getElementById("sidebar-container").innerHTML = html;
+  });
+  
+  (function () {
+    const saved = localStorage.getItem("site-theme") || "dark";
+    document.documentElement.setAttribute("data-theme", saved);
+  })();
+</script>
+
+<div id="sidebar-container"></div>
+
+<main>
+  <h2>Publications</h2>
+
+  <div class="card">
+    <strong>Neural Compression of Turbulent Flow Fields</strong><br>
+    <em>Your Name, Coauthor A, Coauthor B</em><br>
+    ICML 2024
+  </div>
+
+  <div class="card">
+    <strong>Fourier-Enhanced Physics-Informed Networks</strong><br>
+    <em>Your Name, Coauthor</em><br>
+    NeurIPS 2023
+  </div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lattes Network Analysis</title>
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="/../../style.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Global JS -->
+    <script defer src="/../../script.js"></script>
+</head>
+
+<body data-theme="light">
+
+    <!-- SIDEBAR -->
+    <script>
+        (function () {
+        const saved = localStorage.getItem("site-theme") || "dark";
+        document.documentElement.setAttribute("data-theme", saved);
+        })();
+    </script>
+
+
+    <div id="sidebar-container"></div>
+    <script>
+        fetch("../../../sidebar.html")
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("sidebar-container").innerHTML = html;
+        });
+    </script>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- BACK BUTTON -->
+        <a href="/../../projects.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Projects
+        </a>
+
+        <!-- HEADER -->
+        <header class="card project-header">
+            <h1 class="title-xl">Lattes Network Analysis</h1>
+            <p class="subtitle">
+                Undergraduate research on doctoral academic mobility across Brazilian institutions
+            </p>
+
+            <div class="tech-list">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">Pandas</span>
+                <span class="tech-tag">NetworkX</span>
+                <span class="tech-tag">Matplotlib</span>
+                <span class="tech-tag">Data Analysis</span>
+            </div>
+        </header>
+
+        <!-- OVERVIEW -->
+        <section class="card section">
+            <h2 class="section-title">Overview</h2>
+
+            <p class="text-justify">
+                This project explores data from the Brazilian Lattes Platform to analyze academic
+                trajectories of PhD researchers across the country. Using publicly available CV
+                information, I constructed visualizations revealing patterns such as update
+                frequency of CVs, distribution of PhD researchers across regions and research areas,
+                and the difference between funded and non-funded scholarship paths.
+            </p>
+
+            <p class="text-justify" style="margin-top: 15px;">
+                The analysis focused on understanding how doctoral training is distributed across
+                Brazil, how institutions exchange researchers, and what structural insights can be
+                extracted from mobility patterns in academic careers.
+            </p>
+        </section>
+
+        <!-- TECHNICAL IMPLEMENTATION -->
+        <section class="card section">
+            <h2 class="section-title">Technical Implementation</h2>
+
+            <p class="text-justify">
+                The analysis was fully implemented in Python using <b>pandas</b> for data processing,
+                <b>NetworkX</b> for graph construction and network metrics, and <b>matplotlib</b> for
+                visualization. After cleaning and filtering the dataset, I constructed a directed
+                graph where nodes represent institutions and edges represent transitions between
+                PhD-granting institutions and current affiliations. Edge weights reflect the number
+                of researchers moving between institutions.
+            </p>
+
+            <p class="text-justify" style="margin-top: 15px;">
+                The resulting graph enabled degree-based analysis, hub detection, cumulative degree
+                distributions (in log scale), and regional patterns in doctoral training.
+            </p>
+
+            <h3 class="subsection-title">Plots</h3>
+
+            <!-- IMAGE GALLERY -->
+            <div class="image-grid">
+                <div class="image-gallery">
+                    <figure>
+                        <img src="./images/lattes-fraction-cv.png" alt="Fraction of CVs updated">
+                        <figcaption>Fraction of updated Lattes CVs</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="./images/lattes-heatmap.png" alt="Heatmap">
+                        <figcaption>Heatmap: PhDs per area per state</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="./images/lattes-scholarship-phd.png" alt="Scholarship">
+                        <figcaption>Comparison between funded vs. non-funded PhD scholarships</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="./images/network-all-data.png" alt="Network graph">
+                        <figcaption>
+                            Network of PhD paths (edges weighted &gt; 2)
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <h3 class="subsection-title">Python Analysis Code</h3>
+
+            <div class="code-block" style="white-space: pre;">
+import pandas as pd
+import networkx as nx
+import numpy as np
+import matplotlib.pyplot as plt
+import pyhvr
+
+# Prepare and filter data
+df_filtered = df_author_filtered_phdinst_not_nan.drop(columns='name')
+edge_list = (
+    df_filtered
+    .groupby(['phd_institution_fixed', 'institution_fixed'])['id']
+    .count()
+    .reset_index()
+)
+edge_list.columns = ['source', 'target', 'weight']
+edge_list = edge_list.sort_values('weight', ascending=False)
+
+# Create directed graph
+G = nx.from_pandas_edgelist(
+    edge_list[edge_list.weight > 15],
+    edge_attr='weight',
+    create_using=nx.DiGraph()
+)
+
+# Degree distribution
+degrees = dict(G.degree())
+plt.loglog(
+    *pyhvr.cdf(np.array(list(degrees.values())), log=True, nbins=25).T,
+    '-o'
+)
+plt.xlabel("Degree")
+plt.ylabel("Cumulative Distribution")
+plt.tight_layout()
+plt.show()
+
+# Highlight hubs
+threshold = 10
+hubs = [n for n, d in degrees.items() if d >= threshold]
+node_colors = [
+    '#af8dc3' if n in hubs else '#5dade2'
+    for n in G.nodes()
+]
+
+nx.draw_networkx(G, node_color=node_colors, with_labels=False)
+plt.show()
+            </div>
+
+        </section>
+
+    </main>
+</body>
+</html>

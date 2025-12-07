@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carlos Batistela</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fafafa;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 40px;
+        }
+
+        .site-title {
+            font-size: 2.5rem;
+            font-weight: normal;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .site-description {
+            font-size: 1.1rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .project-grid {
+            display: grid;
+            gap: 40px;
+        }
+
+        .project-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .project-description {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .project-tech {
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            background: #ecf0f1;
+            color: #2c3e50;
+            padding: 4px 12px;
+            margin: 2px 4px 2px 0;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .project-links {
+            margin-top: 20px;
+        }
+
+        .project-link {
+            display: inline-block;
+            margin-right: 15px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .project-link:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 30px 0;
+            border-top: 1px solid #e0e0e0;
+            color: #666;
+        }
+
+        .contact-links {
+            margin-top: 15px;
+        }
+
+        .contact-links a {
+            color: #3498db;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: color 0.2s ease;
+        }
+
+        .contact-links a:hover {
+            color: #2980b9;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .site-title {
+                font-size: 2rem;
+            }
+            
+            .project-card {
+                padding: 20px;
+            }
+            
+            .project-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="site-title">Carlos Batistela</h1>
+            <p class="site-description">Projects at a Glance</p>
+        </header>
+
+    <div class="container">
+        <h4>I'm an MSc physics student interested in computational materials science and machine learning for microscopy data.</h4>
+          
+    </div>
+       
+        <main class="project-grid">
+
+            <!-- Future -->
+            <article class="project-card" onclick="location.href='projects/ml-em-images/index.html'" style="cursor: pointer;">
+                <h2 class="project-title">Future Project: Machine Learning applied to Electron Microscopy images</h2>
+                <p class="project-description">
+                    This project is to be developed, as it requires a source of good hardware and access to Electron Microscope.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Pytorch</span>
+                    <span class="tech-tag">Electron Microscopy</span>
+                    <span class="tech-tag">Condensed Matter Physics</span>
+                </div>
+                
+            </article>
+            
+            <!-- PXRD and UV-Vis -->
+            <article class="project-card" onclick="location.href='projects/pxrd-uv-vis/index.html'" style="cursor: pointer;">
+                <h2 class="project-title">Functions for PXRD and UV-Vis plot</h2>
+                <p class="project-description">
+                   A set of handy Python functions I developed for analysing and plotting lab data.  
+                   They make it easy to handle UV-Vis spectra, PXRD patterns, and related calculations without relying on expensive software.
+                    
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Pandas</span>
+                    <span class="tech-tag">Numpy</span>
+                    <span class="tech-tag">Matplotlib</span>
+                </div>
+            </article>
+            <!-- Denoising -->
+            <article class="project-card" onclick="location.href='projects/denoising/index.html'" style="cursor: pointer;">
+                <h2 class="project-title">Denoising with Pytorch</h2>
+                <p class="project-description">
+                   Small <i>Pytorch</i> experiment on image denoising with <i>Gated Attention Units</i>. I played with
+                   noisy <i>CIFAR-10</i> and True Color Kodak images, and a simple network, mostly to learn and see what happens.
+                   Results are not amazing, and my old <i>CPU/GPU</i> made training slow, but it was fun to explore.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Pytorch</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">imageio</span>
+                </div>
+
+            </article>
+
+            <!-- lattes-network -->
+            <article class="project-card" onclick="location.href='projects/lattes-network/index.html'" style="cursor: pointer;">
+                <h2 class="project-title">Lattes Network Analysis</h2>
+                <p class="project-description">
+                    Academic research project, using Lattes (an academic curriculum website) data, we have
+                    analysed a variety of patterns of PhD professionals.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">NetworkX</span>
+                    <span class="tech-tag">Pandas</span>
+                </div>
+            </article>
+
+            <!-- sp-relationship -->
+            <article class="project-card" onclick="location.href='projects/sp-relationship/index.html'" style="cursor: pointer;">
+                <h2 class="project-title">Supernatural Network</h2>
+                <p class="project-description">
+                    A small personal project using TV Show data.
+                     Scrapping only romance relationship using BeautifulSoup, and made a simple network
+                     for visualisation. Results were not even close to my initial thought. Using AI, I embed
+                     a D3 interactive visualisation of the network.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">NetworkX</span>
+                    <span class="tech-tag">BeautifulSoup</span>
+                </div>
+            </article>
+
+            <!-- br-worker-path -->
+            <article class="project-card" onclick="location.href='projects/br-worker-path/index.html'" style="cursor: pointer;">
+                <h2 class="project-title">Brazilian Workers Commuting</h2>
+                <p class="project-description">
+                    This project was part of my undergraduate research and used Brazilian workers' commuting data.
+                    I carried out statistical analysis and visualised the network with GeoPandas.
+                    The results matched our expectations, showing a handful of cities acting as key commuting hubs within their states.
+                </p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">NetworkX</span>
+                    <span class="tech-tag">Numpy</span>
+                    <span class="tech-tag">Geopandas</span>
+                </div>
+                </div>
+            </article>
+
+
+        </main>
+
+        <footer>            
+            <div class="contact-links">
+                <a href="https://www.linkedin.com/in/carlos-batistela-928b46255/">LinkedIn</a>
+                <a href="mailto:carloshbatistela@gmail.com">Email</a>
+            </div>            
+        </footer>
+    </div>
+</body>
+</html>

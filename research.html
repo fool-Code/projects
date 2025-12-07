@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Research – Your Name</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body data-theme="light">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- SIDEBAR -->
+
+
+    <div id="sidebar-container"></div>
+    <script>
+        fetch("sidebar.html")
+            .then(r => r.text())
+            .then(html => document.getElementById("sidebar-container").innerHTML = html);
+        
+        (function () {
+        const saved = localStorage.getItem("site-theme") || "dark";
+        document.documentElement.setAttribute("data-theme", saved);
+        })();
+    </script>
+
+<main>
+  <h2>Research</h2>
+
+  <div class="card">
+    <h3>Neural Field Compression</h3>
+    <p>Developing compact neural representations for large scientific datasets.</p>
+  </div>
+
+  <div class="card">
+    <h3>Physics-Informed AI</h3>
+    <p>PINN architectures for solving PDE-based physical simulations.</p>
+  </div>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

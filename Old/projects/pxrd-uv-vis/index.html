@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functions for PXRD and UV-Vis Plotting</title>
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="/../../style.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Global JS -->
+    <script defer src="/../../script.js"></script>
+</head>
+
+<body data-theme="light">
+
+<!-- SIDEBAR -->
+    <script>
+        (function () {
+        const saved = localStorage.getItem("site-theme") || "dark";
+        document.documentElement.setAttribute("data-theme", saved);
+        })();
+    </script>
+
+
+    <div id="sidebar-container"></div>
+    <script>
+        fetch("../../../sidebar.html")
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("sidebar-container").innerHTML = html;
+        });
+    </script>
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+    <!-- Back -->
+    <a href="/../../projects.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Projects
+    </a>
+
+    <!-- HEADER -->
+    <header class="card project-header">
+        <h1 class="title-xl">Functions for PXRD and UV-Vis Plotting</h1>
+        <p class="subtitle">Simple Python tools for lab data analysis without expensive software</p>
+
+        <div class="tech-list">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Pandas</span>
+            <span class="tech-tag">NumPy</span>
+            <span class="tech-tag">Matplotlib</span>
+            <span class="tech-tag">SciPy</span>
+        </div>
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="card section">
+        <h2 class="section-title">Project Overview</h2>
+
+        <p class="text-justify">
+            After moving to a new research group that relies heavily on paid software such as Origin for
+            plotting and analysis, I needed a way to continue processing data using Python. To solve this,
+            I implemented a set of functions for analysing UV-Vis and PXRD datasets quickly and efficiently.
+        </p>
+
+        <p class="text-justify" style="margin-top: 15px;">
+            UV-Vis analysis is straightforward: the script identifies the peak wavelength, calculates dye
+            concentration using the Beer–Lambert law, and extracts band gap values through Tauc plots using
+            Kubelka–Munk transforms. For PXRD, I implemented Williamson–Hall analysis to obtain crystallite
+            size and microstrain, including instrument correction using a LaB₆ standard and a Caglioti-type
+            fit.
+        </p>
+    </section>
+
+    <!-- IMAGES -->
+    <section class="card section">
+        <h2 class="section-title">Screenshots & Outputs</h2>
+
+        <div class="image-grid">
+            <div class="image-card">
+                <img src="./images/xrd_bfo_single_and_cryo_oneshot_with_inset.png" alt="XRD stacked plot">
+                <div class="caption">Stacked XRD plot with inset</div>
+            </div><br>
+
+            <div class="image-card">
+                <img src="./images/williamson-hall-plot.png" alt="Williamson-Hall plot">
+                <div class="caption">Williamson–Hall analysis</div>
+            </div><br>
+
+            <div class="image-card">
+                <img src="./images/band_gap_bfo_1_1S.png" alt="Tauc plot band gap">
+                <div class="caption">Tauc plot and extracted band gap</div>
+            </div><br>
+
+            <div class="image-card">
+                <img src="./images/ln_c_time.png" alt="Kinetics plot">
+                <div class="caption">Dye concentration kinetics</div>
+            </div><br>
+        </div>
+    </section>
+
+    <!-- IMPLEMENTATION -->
+    <section class="card section">
+        <h3 class="section-subtitle">Technical Implementation</h2>
+
+        <p class="text-justify">
+            Williamson–Hall analysis requires accurate FWHM measurements. To remove instrument broadening,
+            I first measured a LaB₆ standard and fit the peak widths using the Caglioti equation:
+        </p>
+
+        <pre class="code-block">
+Y = (FWHM · π / 180)²  
+Y = U·tan²θ + V·tanθ + W
+        </pre>
+
+        <p class="text-justify" style="margin-top: 15px;">
+            Once the instrumental parameters were extracted, I subtracted the instrumental contribution from
+            the sample peaks and performed a linear fit on the Williamson–Hall equation to estimate strain and
+            crystallite size.  
+        </p>
+
+        <p class="text-justify" style="margin-top: 15px;">
+            For UV-Vis, dye concentration is computed by normalising absorbance and applying the Beer–Lambert
+            law. Band gaps are extracted from smoothed Tauc plots using polynomial fitting around the linear
+            region.
+        </p>
+    </section>
+
+    <!-- CODE: CAGLIOTI + W-H -->
+    <section class="card section">
+        <h3 class="section-subtitle">Caglioti Fit & Williamson–Hall Code</h2>
+
+        <pre class="code-block"><code>
+import numpy as np
+from scipy.stats import linregress
+import matplotlib.pyplot as plt
+
+# Prepare data
+theta = np.radians(df['Theta'] / 2)
+tan_theta = np.tan(theta)
+Y = (np.radians(df['W'])) ** 2
+
+# Caglioti fit: Y = U*tan² + V*tan + W
+X = np.vstack([tan_theta**2, tan_theta, np.ones_like(tan_theta)]).T
+U, V, W = np.linalg.lstsq(X, Y, rcond=None)[0]
+
+# Instrument correction
+radians_theta = np.radians(df_bfo['2Theta'] / 2)
+beta_inst = U*np.tan(radians_theta)**2 + V*np.tan(radians_theta) + W
+beta_sample = np.sqrt((np.radians(df_bfo['W']))**2 - beta_inst)
+
+# Williamson–Hall fit
+x = 4 * np.sin(radians_theta)
+y = beta_sample * np.cos(radians_theta)
+params = linregress(x, y)
+        </code></pre>
+    </section>
+
+    <!-- CODE: BAND GAP -->
+    <section class="card section">
+        <h3 class="section-subtitle">Band Gap Extraction</h2>
+
+        <pre class="code-block"><code>
+import numpy as np
+from scipy.constants import Planck, speed_of_light, electron_volt, nano
+from scipy.signal import savgol_filter
+from scipy.interpolate import interp1d
+
+def calculate_absorbance(df, sample):
+    R = df[sample] / 100
+    K = (1 - R)**2 / (2 * R)
+    hc = Planck * speed_of_light / (electron_volt * nano)
+    energy = hc / df['wavelength(nm)']
+    return energy, (K * energy)**2
+
+def calculate_band_gap(energy, tauc):
+    y_smooth = savgol_filter(tauc, 51, 3)
+    interp = interp1d(energy, y_smooth)
+    x = np.linspace(energy.min(), energy.max(), 5000)
+    grad = np.diff(interp(x)) / np.diff(x)
+    start = np.argmax(grad)
+
+    fit = np.polyfit(x[start:start+100], interp(x)[start:start+100], 1)
+    Eg = -fit[1] / fit[0]
+
+    return Eg
+        </code></pre>
+    </section>
+
+    <!-- CODE: DYE CONCENTRATION -->
+    <section class="card section">
+        <h2 class="section-title">Dye Concentration Calculation</h2>
+
+        <pre class="code-block"><code>
+import pandas as pd
+import numpy as np
+from scipy.stats import linregress
+import re
+
+def process_absorbance_data(df):
+    max_col = df.sum().idxmax()
+    max_row = df.loc[df[max_col].idxmax()]
+
+    results = [(re.search(r'\d+', col).group(0), max_row[col])
+               for col in df.columns if re.search(r'\d+', col)]
+
+    result_df = pd.DataFrame(results, columns=['Time','Abs'])
+    result_df['Conc'] = result_df['Abs'] / result_df['Abs'].iloc[0]
+    return result_df
+
+def calculate_ln_and_regression(df):
+    C0 = df['Conc'].iloc[0]
+    ratio = df['Conc'] / C0
+    ln_vals = np.log(C0 / ratio)
+
+    t = pd.to_numeric(df['Time'], errors='coerce')
+    fit = linregress(t, ln_vals)
+
+    return fit
+        </code></pre>
+    </section>
+
+</main>
+</body>
+</html>

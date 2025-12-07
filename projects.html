@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects</title>
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Global Script -->
+    <script defer src="script.js"></script>
+</head>
+
+<body data-theme="light">
+
+    <!-- Shared Sidebar -->
+    <div id="sidebar-container"></div>
+    <script>
+        fetch("sidebar.html")
+            .then(r => r.text())
+            .then(html => document.getElementById("sidebar-container").innerHTML = html);
+        
+        (function () {
+        const saved = localStorage.getItem("site-theme") || "dark";
+        document.documentElement.setAttribute("data-theme", saved);
+        })();
+    </script>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <h1 class="title-xl">Projects</h1>
+        <p class="subtitle" style="margin-bottom: 20px;">
+            Selected academic and personal projects.
+        </p>
+
+        <!-- PROJECT GRID -->
+        <div class="projects-grid">
+
+            <!-- PROJECT CARD 1 -->
+            <a class="project-card" href="Old\projects\ml-em-images\index.html">
+                <div class="project-card-content">
+                    <h2 class="project-title">Future Project: Machine Learning for Electron Microscopy Images</h2>
+                    <p class="project-desc">
+                        Exploring AI-driven improvements in materials characterisation
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">PyTorch</span>
+                        <span class="tech-tag">Electron Microscopy</span>
+                        <span class="tech-tag">Diffusion Models</span>
+                        <span class="tech-tag">Transformers</span>
+                    </div>
+                </div>
+            </a>
+
+            
+            <!-- PROJECT CARD 2 (EXAMPLE) -->
+            <a class="project-card" href="Old\projects\denoising\index.html">
+                <div class="project-card-content">
+                    <h2 class="project-title">Denoising with PyTorch</h2>
+                    <p class="project-desc">
+                        Exploring image denoising with PyTorch and Gated Attention Units (GAUs)
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">PyTorch</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">imageio</span>
+                        <span class="tech-tag">Neural Networks</span>
+                        <span class="tech-tag">CIFAR-10</span>
+                    </div>
+                </div>
+            </a>          
+            
+            <a class="project-card" href="Old\projects\pxrd-uv-vis\index.html">
+                <div class="project-card-content">
+                    <h2 class="project-title">Functions for PXRD and UV-Vis Plotting</h2>
+                    <p class="project-desc">
+                        Simple Python tools for lab data analysis without expensive software
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">NumPy</span>
+                        <span class="tech-tag">Matplotlib</span>
+                        <span class="tech-tag">SciPy</span>
+                    </div>
+                </div>
+            </a>     
+
+            <a class="project-card" href="Old\projects\sp-relationship\index.html">
+                <div class="project-card-content">
+                    <h2 class="project-title">Supernatural Network</h2>
+                    <p class="project-desc">
+                        A small network visualisation
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">NetworkX</span>
+                        <span class="tech-tag">BeautifulSoup</span>
+                    </div>
+                </div>
+            </a>
+
+            <a class="project-card" href="Old\projects\lattes-network\index.html">
+                <div class="project-card-content">
+                    <h2 class="project-title">Lattes Network Analysis</h2>
+                    <p class="project-desc">
+                        Undergraduate research on doctoral academic mobility across Brazilian institutions
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">NetworkX</span>
+                        <span class="tech-tag">Matplotlib</span>
+                        <span class="tech-tag">Data Analysis</span>
+                    </div>
+                </div>
+            </a>
+            
+            <a class="project-card" href="Old\projects\br-worker-path\index.html">
+                <div class="project-card-content">
+                    <h2 class="project-title">Brazilian Workers Commuting</h2>
+                    <p class="project-desc">
+                        Undergraduate research modeling Brazilian commuter networks with Python and NetworkX.
+                    </p>
+                    <div class="tech-list">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">NetworkX</span>
+                        <span class="tech-tag">Geopandas</span>
+                        <span class="tech-tag">Data Science</span>
+                    </div>
+                </div>
+            </a>
+            
+
+            <!-- Add more cards easily by duplicating -->
+
+        </div>
+
+    </main>
+
+</body>
+</html>

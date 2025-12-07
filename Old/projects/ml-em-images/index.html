@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML for Electron Microscopy Images</title>
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="/../../style.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Global Scripts -->
+    <script defer src="/../../script.js"></script>
+</head>
+
+<body data-theme="light">
+
+<!-- SIDEBAR -->
+    <script>
+        (function () {
+        const saved = localStorage.getItem("site-theme") || "dark";
+        document.documentElement.setAttribute("data-theme", saved);
+        })();
+    </script>
+
+
+    <div id="sidebar-container"></div>
+    <script>
+        fetch("../../../sidebar.html")
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("sidebar-container").innerHTML = html;
+        });
+    </script>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+    <!-- Back Button -->
+    <a href="../../../projects.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Projects
+    </a>
+
+    <!-- HEADER -->
+    <header class="card project-header">
+        <h1 class="title-xl">Future Project: Machine Learning for Electron Microscopy Images</h1>
+        <p class="subtitle">Exploring AI-driven improvements in materials characterisation</p>
+
+        <div class="tech-list">
+            <span class="tech-tag">PyTorch</span>
+            <span class="tech-tag">Electron Microscopy</span>
+            <span class="tech-tag">Diffusion Models</span>
+            <span class="tech-tag">Transformers</span>
+        </div>
+    </header>
+
+    <!-- OVERVIEW -->
+    <section class="card section">
+        <h2 class="section-title">Project Overview</h2>
+
+        <p class="text-justify">
+            This project aims to address one of the major challenges in electron microscopy (EM):
+            obtaining high-quality, noise-free images during data acquisition. Many factors can
+            degrade an EM image — poor sample preparation, environmental drift, incorrect
+            astigmatism alignment, or inaccurate Z-height adjustments. Beam energy can also damage
+            delicate samples or introduce artefacts into the image.
+        </p>
+
+        <p class="text-justify" style="margin-top: 15px;">
+            These issues are familiar to anyone who has spent time at the microscope. When focusing
+            on fine features, drift or astigmatism can ruin an otherwise promising dataset and
+            require constant manual correction. With recent advances in AI-based image processing,
+            there is now an opportunity to improve EM images after acquisition — not with
+            unrealistic “CSI-style enhancement,” but with meaningful denoising and feature
+            restoration.
+        </p>
+
+        <p class="text-justify" style="margin-top: 15px;">
+            While AI denoising is common in consumer imaging, its application in materials
+            characterisation is still emerging, creating an exciting research space.
+        </p>
+    </section>
+
+    <!-- CURRENT MODELS -->
+    <section class="card section">
+        <h2 class="section-title">Small Review of Current Models</h2>
+
+        <p class="text-justify">
+            Several modern machine-learning approaches are being tested in EM imaging, including
+            diffusion models, vision transformers, and hybrid convolution–transformer networks.
+            Diffusion-based models such as
+            <a href="https://www.nature.com/articles/s41467-024-49125-z" target="_blank">EMDiffuse (Lu et al., 2024)</a>
+            demonstrate strong performance in restoring ultrastructural detail.
+            Broader surveys of DDPM/DDIM approaches show effectiveness in denoising, segmentation,
+            classification, and super-resolution for microscopic images
+            (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12309395/" target="_blank">Liu et al., 2025</a>).
+        </p>
+
+        <p class="text-justify" style="margin-top: 15px;">
+            Transformers and hybrid networks are becoming increasingly common. For example, a
+            <a href="https://www.nature.com/articles/s41598-024-68918-2" target="_blank">CNN-Transformer model (Rehman et al., 2024)</a>
+            was developed specifically for fluorescence microscopy denoising, offering stronger
+            generalisation than traditional CNNs. Other studies investigate
+            <a href="https://www.sciencedirect.com/science/article/abs/pii/S1566253523003597" target="_blank">cross-transformers (Tian et al., 2024)</a>,
+            combining residual, parallel, and serial blocks to target complex noise structures.
+        </p>
+
+        <p class="text-justify" style="margin-top: 15px;">
+            Despite promising progress, challenges remain. High-quality paired datasets of noisy and
+            clean EM images are difficult to obtain. EM noise patterns — drift, astigmatism, beam
+            damage — differ significantly from natural images. High-resolution data also creates
+            computational constraints. Finally, models trained on specific microscopes or samples
+            may not generalise without careful fine-tuning.
+        </p>
+    </section>
+
+    <!-- IMAGE EXAMPLE -->
+    <section class="card section">
+        <h2 class="section-title">Recent Example</h2>
+
+        <div class="image-grid">
+            <div class="image-card">
+                <img src="./images/mstad7e41f3_hr.jpg" alt="Denoising SEM Images">
+                <div class="caption">
+                    Denoising comparison on SEM images (Shin, 2025).  
+                    <a href="https://www.sciencedirect.com/science/article/abs/pii/S1566253523003597" target="_blank">
+                        Source publication.
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- POSSIBLE OUTCOMES -->
+    <section class="card section">
+        <h2 class="section-title">Possible Outcomes</h2>
+
+        <p class="text-justify">
+            By the end of this project, I aim to better understand how AI models can mitigate drift,
+            noise, and focus-related artefacts in EM imaging. Even modest improvements could reduce
+            the time spent fine-tuning microscope settings and help preserve important physical
+            details during acquisition.
+        </p>
+
+        <p class="text-justify" style="margin-top: 15px;">
+            The project may also reveal limitations of current models when applied to EM datasets —
+            helping identify which noise patterns are still difficult to handle and what types of
+            training data may be needed in the future.
+        </p>
+    </section>
+
+</main>
+</body>
+</html>

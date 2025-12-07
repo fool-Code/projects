@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brazilian Workers Commuting — Project</title>
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="../../../style.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Global Script (dark mode, sidebar, etc.) -->
+    <script defer src="../../../script.js"></script>
+
+    <!-- Chart.js (optional for this project) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+
+<body data-theme="light">
+
+    <!-- Shared Sidebar -->
+
+    <script>
+        (function () {
+        const saved = localStorage.getItem("site-theme") || "dark";
+        document.documentElement.setAttribute("data-theme", saved);
+        })();
+    </script>
+
+
+    <div id="sidebar-container"></div>
+    <script>
+        fetch("../../../sidebar.html")
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("sidebar-container").innerHTML = html;
+        });
+    </script>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <a href="../../../projects.html" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Back to Projects
+        </a>
+
+        <!-- Header -->
+        <header class="card project-header">
+            <h1 class="title-xl">Brazilian Workers Commuting</h1>
+            <p class="subtitle">Undergraduate research on Brazilian commuter networks</p>
+
+            <div class="tech-list">
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">NetworkX</span>
+                <span class="tech-tag">Numpy</span>
+                <span class="tech-tag">Geopandas</span>
+            </div>
+        </header>
+
+        <!-- Overview -->
+        <section class="card section">
+            <h2 class="section-title">Project Overview</h2>
+
+            <p class="text-justify">
+                As part of my undergraduate research, I modelled a commuter transport system as a graph:
+                stations as nodes and routes as edges. Using Python + NetworkX, I measured how the
+                average shortest path changes with network size (log of nodes vs. path length) and
+                ran regressions to detect structural patterns.
+            </p>
+
+            <p class="text-justify" style="margin-top: 1rem;">
+                This project taught me about data cleaning, graph theory metrics, spatial networks,
+                and how to transform raw transport data into meaningful insights.
+            </p>
+        </section>
+
+        <!-- Technical Section -->
+        <section class="card section">
+            <h2 class="section-title">Technical Implementation</h2>
+
+            <p>
+                The commuter networks were treated as graphs where stations are nodes and routes
+                represent weighted edges. The analysis focused on connectivity, shortest paths,
+                and structural comparisons across different regions.
+            </p>
+
+            <h3 class="section-subtitle">Architecture Overview</h3>
+
+            <pre class="code-block">
+Edge List → Build Graph (NetworkX) →
+Compute Metrics (log(N), avg shortest path) →
+Linear Regression →
+Save & Visualise Results
+            </pre>
+
+            <!-- Image Grid -->
+            <div class="image-grid">
+                <div class="image-card">
+                    <img src="./images/weighted-AM-commute-network.png"
+                         alt="Amazonas commuter network">
+
+                    <div class="caption">
+                        Amazonas State commuter network visualised using Geopandas
+                    </div>
+                </div>
+
+                <div class="image-card">
+                    <img src="./images/weighted-BR-commute-network.png"
+                         alt="Brazilian commuter graph">
+
+                    <div class="caption">
+                        Brazilian weighted commuter network
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Example -->
+            <h3 class="section-subtitle">Python Analysis Code</h3>
+
+            <pre class="code-block">
+import networkx as nx
+import numpy as np
+from scipy.stats import linregress
+import pickle
+
+def build_graph(edge_list):
+    G = nx.Graph()
+    G.add_edges_from(edge_list)
+    return G
+
+def graph_stats(G):
+    avg_path = nx.average_shortest_path_length(G)
+    log_nodes = np.log(G.number_of_nodes())
+    return log_nodes, avg_path
+
+all_regions = [edges_region1, edges_region2, ...]
+
+logn_vs_avg = np.asarray([
+    graph_stats(build_graph(edges))
+    for edges in all_regions
+])
+
+slope, intercept, r, p, stderr = linregress(
+    logn_vs_avg[:,0], logn_vs_avg[:,1]
+)
+
+with open("data/logn_vs_avgpath.pkl", "wb") as f:
+    pickle.dump(logn_vs_avg, f)
+            </pre>
+        </section>
+
+    </main>
+</body>
+</html>

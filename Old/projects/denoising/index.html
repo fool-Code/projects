@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denoising with PyTorch</title>
+
+    <!-- Global Styles -->
+    <link rel="stylesheet" href="/../../style.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Global JS -->
+    <script defer src="/../../script.js"></script>
+</head>
+
+<body data-theme="light">
+
+    <script>
+        (function () {
+        const saved = localStorage.getItem("site-theme") || "dark";
+        document.documentElement.setAttribute("data-theme", saved);
+        })();
+    </script>
+
+
+    <div id="sidebar-container"></div>
+    <script>
+        fetch("../../../sidebar.html")
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("sidebar-container").innerHTML = html;
+        });
+    </script>
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- BACK LINK -->
+        <a href="/../../projects.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Projects
+        </a>
+
+        <!-- HEADER CARD -->
+        <header class="project-header">
+            <h1 class="project-title">Denoising with PyTorch</h1>
+            <p class="project-subtitle">
+                Exploring image denoising with PyTorch and Gated Attention Units (GAUs)
+            </p>
+
+            <!-- TECH TAGS -->
+            <div class="project-tech">
+                <span class="tech-tag">PyTorch</span>
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">imageio</span>
+                <span class="tech-tag">Neural Networks</span>
+                <span class="tech-tag">CIFAR-10</span>
+            </div>
+        </header>
+
+        <!-- SECTION 1: OVERVIEW -->
+        <section class="card section">
+            <h2 class="section-title">Overview</h2>
+
+            <p class="text-text-justify">
+                This project explores image denoising using a small PyTorch model that incorporates
+                Gated Attention Units (GAUs). The objective was primarily exploratory: generate
+                noisy images using Gaussian and Poisson noise, train a model to recover the original
+                clean versions, and evaluate performance visually.
+            </p>
+
+            <p class="text-text-justify" style="margin-top: 1rem;">
+                The work began from code suggested by ChatGPT; through debugging and gradually
+                understanding each component, the project became an opportunity to explore PyTorch
+                more systematically—custom datasets, training loops, and attention mechanisms.  
+                This experience motivated further study through
+                <i>Deep Learning with PyTorch</i> and a Mathematical Statistics course.
+            </p>
+        </section>
+
+        <!-- SECTION 2: KEY FEATURES -->
+        <section class="card section">
+            <h2 class="sectiontitle">Key Features</h2>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3 class="feature-title">Exploratory Denoising</h3>
+                    <p>Implemented a curiosity-driven denoising pipeline using GAUs.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Noise Simulation</h3>
+                    <p>Added Gaussian and Poisson noise to CIFAR-10 and Kodak dataset images.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Custom Architecture</h3>
+                    <p>Built a lightweight encoder–decoder network enhanced with GAU blocks.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Visual Evaluation</h3>
+                    <p>Compared noisy, clean, and reconstructed images for qualitative assessment.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Learning-Focused</h3>
+                    <p>Aimed at understanding PyTorch internals, not maximizing performance.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Hardware Constraints</h3>
+                    <p>Experiments performed on older hardware (i5-7200U, GTX 940MX, 16GB RAM).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: TECHNICAL IMPLEMENTATION -->
+        <section class="card section">
+            <h2 class="section-title">Technical Implementation</h2>
+
+            <p class="text-justify">
+                The denoising network receives noisy CIFAR-10 images and attempts to reconstruct
+                cleaner versions. The architecture follows a simple pattern: convolutional encoder,
+                GAU blocks, and a decoder. The model was trained on a small dataset split due to
+                hardware limitations.
+            </p>
+
+            <h3 class="subsection-title">Architecture Overview</h3>
+            <div class="code-block">
+                Input (Noisy Image) → Encoder → GAU Blocks → Decoder → Output (Denoised Image)
+            </div>
+
+            <!-- IMAGE GALLERY -->
+            <div class="image-grid">
+                <div class="image-card">
+                    <figure>
+                        <img src="./images/cars-cifar10.png" alt="CIFAR-10 Cars">
+                        <figcaption>CIFAR-10 dataset sample (Cars)</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="./images/clean-parrots.png" alt="Clean Parrot">
+                        <figcaption>Clean Kodak Parrot image</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="./images/noisy-parrots.png" alt="Noisy Parrot">
+                        <figcaption>Poisson noise applied to the Parrot image</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="./images/denoised-parrots.png" alt="Denoised Parrot">
+                        <figcaption>Denoised output from GAU model</figcaption>
+                    </figure>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Sample Input/Output</h3>
+            <div class="code-block">
+Noisy:    tensor([[[0.12, 0.34, 0.27], ...]])
+Denoised: tensor([[[0.10, 0.32, 0.25], ...]])
+Clean:    tensor([[[0.11, 0.33, 0.26], ...]])
+            </div>
+
+            <h3 class="subsection-title">PyTorch Denoising Code</h3>
+            <div class="code-block" style="white-space: pre;">
+import torch
+import torch.nn as nn
+from torchvision import datasets, transforms
+from pytorch_msssim import ssim
+
+def add_gaussian_noise(img, std=0.1):
+    noise = torch.randn_like(img) * std
+    noisy = img + noise
+    return torch.clamp(noisy, 0., 1.)
+
+class NoisyCIFAR10(torch.utils.data.Dataset):
+    def __init__(self, train=True, noise_type="gaussian"):
+        self.dataset = datasets.CIFAR10(root="./data", train=train,
+                                        download=True, transform=transforms.ToTensor())
+        self.noise_type = noise_type
+
+    def __len__(self):
+        return len(self.dataset)
+
+    def __getitem__(self, idx):
+        clean, _ = self.dataset[idx]
+        if self.noise_type == "gaussian":
+            noisy = add_gaussian_noise(clean.clone())
+        else:
+            noisy = clean
+        return noisy, clean
+            </div>
+
+        </section>
+
+        <!-- SECTION 4: RESULTS -->
+        <section class="card section">
+            <h2 class="section-title">Results</h2>
+
+            <p class="text-justify">
+                As expected, the model’s performance was limited. Results were not sharp enough to
+                be considered clean reconstructions — largely due to training on a small sample set,
+                necessitated by hardware limitations.
+            </p>
+
+            <p class="text-justify" style="margin-top: 15px;">
+                <strong>Hardware used:</strong><br>
+                • Intel i5-7200U<br>
+                • NVIDIA GeForce 940MX<br>
+                • 16 GB DDR4 RAM  
+            </p>
+        </section>
+
+    </main>
+</body>
+</html>
