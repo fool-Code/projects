@@ -30,13 +30,27 @@ window.addEventListener("resize", () => {
 
 // Load sidebar
 document.addEventListener("DOMContentLoaded", () => {
-  fetch("sidebar.html")
-    .then(r => r.text())
-    .then(html => {
-      document.getElementById("sidebar-container").innerHTML = html;
-      initThemeToggle();
-    });
+  loadSidebar();
 });
+
+function loadSidebar() {
+  const container = document.getElementById("sidebar-container");
+  if (!container) return;
+
+  fetch("/projects/sidebar.html")   
+    .then(r => {
+      if (!r.ok) throw new Error(r.status);
+      return r.text();
+    })
+    .then(html => {
+      container.innerHTML = html;
+      initThemeToggle(); 
+    })
+    .catch(err => {
+      console.error("Sidebar failed to load:", err);
+    });
+}
+
 
 // Toggle logic
 function initThemeToggle() {
